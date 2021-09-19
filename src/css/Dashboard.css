@@ -1,0 +1,48 @@
+.bg {
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+}
+
+.background-tint {
+    background-color: rgba(0, 0, 0, 0.4); /* Tint color */
+    background-blend-mode: multiply;
+}
+
+
+.greeting {
+    font-size: 50px;
+}
+
+.greeting-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.time {
+    font-size: 15rem;
+    padding: 0;
+    margin: 0
+}
+
+.credits {
+    color: gainsboro;
+    font-size: 15px;
+    float: right;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+a {
+    text-decoration: underline;
+    color: gainsboro
+}
