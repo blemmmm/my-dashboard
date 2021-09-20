@@ -7,6 +7,7 @@ function Dashboard() {
     const [hours, setHours] = useState(null);
     const [minutes, setMinutes] = useState(null);
     const [timeOfDay, setTimeOfDay] = useState("");
+    const [ampm, setAmPm] = useState("");
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -18,10 +19,17 @@ function Dashboard() {
 
             if (nextHours < 12) {
                 setTimeOfDay("Morning");
+                setAmPm("AM");
             } else if (nextHours >= 12 && nextHours < 17) {
+                if (nextHours != 12) {
+                    setHours(nextHours-12);
+                }
                 setTimeOfDay("Afternoon");
+                setAmPm("PM");
             } else {
+                setHours(nextHours-12);
                 setTimeOfDay("Evening");
+                setAmPm("PM");
             }
 
             if (nextMin < 10) {
@@ -38,7 +46,7 @@ function Dashboard() {
     return(
         <div className="bg background-tint" style={{backgroundImage: `url(${imgSrc})`}}>
             <div className="h-full flex flex-col items-center justify-center">
-            <h1 className="text-9xl text-white p-10">{hours}:{minutes}</h1>
+            <h1 className="text-9xl text-white p-10">{hours}:{minutes} {ampm}</h1>
             <h1 className="text-2xl text-white 2xl:text-8xl lg:text-7xl md:text-5xl">Good {timeOfDay}, Blessly!</h1>
             </div>
         </div>
