@@ -32,17 +32,3 @@
     padding: 0;
     margin: 0
 }
-
-.credits {
-    color: gainsboro;
-    font-size: 15px;
-    float: right;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-}
-
-a {
-    text-decoration: underline;
-    color: gainsboro
-}
