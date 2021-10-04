@@ -68,9 +68,9 @@ function Dashboard() {
                 <h1 className="text-2xl 2xl:text-4xl text-white px-4 py-4">{days[dayName]}, {months[month]} {day}</h1>
             </div>
             <div className="flex flex-row float-right justify-center items-center right-0 bottom-0 fixed px-4 py-4">
-                <button className="border-0 bg-black bg-opacity-0 rounded-xl p-2 hover:bg-opacity-10" title="View Notes" >
+                <button className="border-0 rounded-xl p-2" title="View Notes" >
                     <span>
-                        <Icon className="text-white text-3xl" icon="fa-solid:clipboard-list" />
+                        <Icon className="text-white opacity-50 hover:drop-shadow-sm text-4xl" icon="fa-solid:clipboard-list" />
                     </span>
                 </button>
             </div>
