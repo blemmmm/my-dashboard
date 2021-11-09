@@ -2,9 +2,9 @@ import './css/Dashboard.css';
 import React, {useState, useEffect, Fragment} from 'react';
 import { Icon } from '@iconify/react';
 import { Dialog, Transition } from '@headlessui/react'
+import ViewItems from './ViewItems';
 
 function Dashboard() {
-
     const imgSrc = "https://source.unsplash.com/1920x1080/daily?";
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; 
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -67,11 +67,22 @@ function Dashboard() {
     const addTask = (task) => {
         setTasks([...tasks, task])
         setTask("");
+        
+    };
+
+    const generateID = () => {
+        return '_' + Math.random().toString(36).substr(2, 9);
     };
 
       
-   
+    const taskItems = tasks.map(item => {
+        const taskId = item.id;
+        
+        return <ViewItems key={taskId} items={item} />
+    });
+
     return(
+        
         <div className="bg background-tint" style={{backgroundImage: `url(${imgSrc}${timeOfDay},mountain)`}}>
             <div className="h-full flex flex-col items-center justify-center">
                 <h1 className="text-3xl text-white 2xl:text-8xl lg:text-7xl md:text-5xl">Good {timeOfDay}, Blessly!</h1>
@@ -81,7 +92,7 @@ function Dashboard() {
                 <h1 className="text-2xl 2xl:text-4xl text-white px-4 py-4">{days[dayName]}, {months[month]} {day}</h1>
             </div>
             <div className="flex flex-row float-right justify-center items-center right-0 bottom-0 fixed px-4 py-4">
-                <button className="border-0 rounded-xl p-2" title="View Notes" onClick={openModal}>
+                <button className="border-0 rounded-xl p-2" title="To-do List" onClick={openModal}>
                     <span>
                         <Icon className="text-white opacity-50 hover:drop-shadow-sm text-4xl" icon="fa-solid:clipboard-list" />
                     </span>
@@ -132,15 +143,16 @@ function Dashboard() {
                         <input 
                         className="w-full h-10 pl-3 pr-8 text-base text-gray-700 placeholder-gray-600 border rounded-md focus:outline-none" 
                         type="text" 
-                        placeholder="Enter to-do here" 
+                        placeholder="Enter tasks here" 
                         value={task} 
                         onChange={(e) => setTask(e.target.value)} 
-                        onKeyDown={(e) => e.key === 'Enter' ? addTask(`<input type="checkbox" /><span class="ml-1">${task}</span><br />`) : ''}
+                        onKeyDown={(e) => e.key === 'Enter' ? addTask({id: generateID(), taskItem: task, completed: false}) : ''}
                         id="task"/>
                         </div>
-                        <div className="mt-4 text-sm text-gray-500" dangerouslySetInnerHTML={{__html: tasks.join('')}}>
-
+                        <div className="mt-4 text-sm text-gray-500">
+                            {taskItems}
                         </div>
+                        
                     </div>
                     </Transition.Child>
                 </div>
