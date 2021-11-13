@@ -18,7 +18,7 @@ function Dashboard() {
     const [task, setTask] = useState("");
     const [tasks, setTasks] = useState([]);
     let myTasks = []
-    if (task === null) {
+    if (!localStorage.getItem("myTasks")) {
         localStorage.setItem("myTasks", JSON.stringify(tasks))
     } else {
         myTasks = JSON.parse(localStorage.getItem('myTasks'));
