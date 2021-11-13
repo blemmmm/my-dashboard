@@ -17,6 +17,12 @@ function Dashboard() {
     const [month, setMonth] = useState("");
     const [task, setTask] = useState("");
     const [tasks, setTasks] = useState([]);
+    let myTasks = []
+    if (task === null) {
+        localStorage.setItem("myTasks", JSON.stringify(tasks))
+    } else {
+        myTasks = JSON.parse(localStorage.getItem('myTasks'));
+    }
     let [isOpen, setIsOpen] = useState(false)
 
     const closeModal = () => setIsOpen(false);
@@ -67,7 +73,12 @@ function Dashboard() {
     const addTask = (task) => {
         setTasks([...tasks, task])
         setTask("");
-        
+        let updatedTask = [];
+        for (let i=0; i<myTasks.length; i++) {
+            updatedTask.push(myTasks[i]);
+        }
+        updatedTask.push(task);
+        localStorage.setItem("myTasks", JSON.stringify(updatedTask))
     };
 
     const generateID = () => {
@@ -75,9 +86,8 @@ function Dashboard() {
     };
 
       
-    const taskItems = tasks.map(item => {
+    const taskItems = myTasks.map(item => {
         const taskId = item.id;
-        
         return <ViewItems key={taskId} items={item} />
     });
 
