@@ -104,7 +104,7 @@ function Dashboard() {
             <div className="flex flex-row float-right justify-center items-center right-0 bottom-0 fixed px-4 py-4">
                 <button className="border-0 rounded-xl p-2" title="To-do List" onClick={openModal}>
                     <span>
-                        <Icon className="text-white opacity-50 hover:drop-shadow-sm text-4xl" icon="fa-solid:clipboard-list" />
+                        <Icon className="text-white opacity-70 hover:drop-shadow-sm text-6xl" icon="fluent:clipboard-task-list-ltr-20-filled" />
                     </span>
                 </button>
             </div>
