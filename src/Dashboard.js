@@ -101,10 +101,10 @@ function Dashboard() {
                 <h1 className="text-3xl 2xl:text-6xl lg:text-5xl md:text-5xl text-white px-4">{hours}:{minutes} {ampm}</h1>
                 <h1 className="text-2xl 2xl:text-4xl text-white px-4 py-4">{days[dayName]}, {months[month]} {day}</h1>
             </div>
-            <div className="flex flex-row float-right justify-center items-center right-0 bottom-0 fixed px-4 py-4">
+            <div className="flex flex-row float-right justify-center items-center right-0 bottom-0 fixed py-2">
                 <button className="border-0 rounded-xl p-2" title="To-do List" onClick={openModal}>
                     <span>
-                        <Icon className="text-white opacity-70 hover:drop-shadow-sm text-6xl" icon="fluent:clipboard-task-list-ltr-20-filled" />
+                        <Icon className="text-white opacity-70 hover:drop-shadow-sm text-5xl" icon="fluent:clipboard-task-add-24-filled" />
                     </span>
                 </button>
             </div>
