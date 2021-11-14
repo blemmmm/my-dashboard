@@ -38,13 +38,13 @@ function ViewItems(props) {
         updateLocalStorage(tempArray);
     }
     return (
-        <div className="flex-row content-center	items-center py-1">
+        <div className="flex-row content-center	items-center py-1" onDoubleClick={(e) => handleDblClick(e, props.items.id)}>
             <input
                 type="checkbox"
                 checked={props.items.completed}
                 onChange={() => handleChange(props.items.id)}
             />
-            <span className="ml-1" title="Double click to remove" style={style} onDoubleClick={(e) => handleDblClick(e, props.items.id)}>{props.items.taskItem}</span>
+            <span className="ml-1" title="Double click to remove" style={style} >{props.items.taskItem}</span>
         </div>
     )
 }
