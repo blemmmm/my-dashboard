@@ -159,7 +159,7 @@ function Dashboard() {
                                         onKeyDown={(e) => e.key === 'Enter' ? addTask({ id: generateID(), taskItem: task, completed: false }) : ''}
                                         id="task" />
                                 </div>
-                                <div className="mt-4 text-sm text-gray-500">
+                                <div className="mt-4 text-sm text-gray-500 divide-y-2 divide-gray-100">
                                     {taskItems}
                                 </div>
 

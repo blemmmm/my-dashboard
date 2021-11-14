@@ -1,20 +1,24 @@
 import React from 'react';
 
 function ViewItems(props) {
-    let style = props.items.completed ? {
+    const style = props.items.completed ? {
         color: "gray",
         textDecoration: "line-through",
-        fontStyle: "italic"
+        fontStyle: "italic",
+        cursor: "pointer"
     } : {
-        color: "black"
+        color: "black",
+        cursor: "pointer",
     }
+
+    const myTasks = JSON.parse(localStorage.getItem('myTasks'));
 
     const updateLocalStorage = (updatedTodos) => {
         localStorage.setItem("myTasks", JSON.stringify(updatedTodos));
     }
+
     const handleChange = (itemKey) => {
         let updatedTask = [];
-        const myTasks = JSON.parse(localStorage.getItem('myTasks'));
         for (let i = 0; i < myTasks.length; i++) {
             if (itemKey === myTasks[i].id) {
                 myTasks[i].completed = !myTasks[i].completed;
@@ -27,16 +31,20 @@ function ViewItems(props) {
     }
     const handleDblClick = (event, itemKey) => {
         event.preventDefault();
-        alert(`double clicked ${itemKey}`);
+        let tempArray = [...myTasks];
+        const ids = myTasks.map(item => item.id)
+        const indexToRemove = ids.indexOf(itemKey)
+        tempArray.splice(indexToRemove, 1);
+        updateLocalStorage(tempArray);
     }
     return (
-        <div className="flex-row content-center	items-center">
+        <div className="flex-row content-center	items-center py-1">
             <input
                 type="checkbox"
                 checked={props.items.completed}
                 onChange={() => handleChange(props.items.id)}
             />
-            <span className="ml-1" style={style} onDoubleClick={(e) => handleDblClick(e, props.items.id)}>{props.items.taskItem}</span>
+            <span className="ml-1" title="Double click to remove" style={style} onDoubleClick={(e) => handleDblClick(e, props.items.id)}>{props.items.taskItem}</span>
         </div>
     )
 }
