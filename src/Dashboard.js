@@ -1,12 +1,12 @@
 import './css/Dashboard.css';
-import React, {useState, useEffect, Fragment} from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Icon } from '@iconify/react';
 import { Dialog, Transition } from '@headlessui/react'
 import ViewItems from './ViewItems';
 
 function Dashboard() {
     const imgSrc = "https://source.unsplash.com/1920x1080/daily?";
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; 
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const [hours, setHours] = useState(null);
     const [minutes, setMinutes] = useState(null);
@@ -44,37 +44,37 @@ function Dashboard() {
 
             if (nextHours < 12) {
                 if (nextHours === 0) {
-                    setHours(nextHours+12);
+                    setHours(nextHours + 12);
                 }
                 setTimeOfDay("Morning");
                 setAmPm("AM");
-            } else if (nextHours >= 12 && nextHours < 17) {
+            } else if (nextHours >= 12 && nextHours < 18) {
                 if (nextHours !== 12) {
-                    setHours(nextHours-12);
+                    setHours(nextHours - 12);
                 }
                 setTimeOfDay("Afternoon");
                 setAmPm("PM");
             } else {
-                setHours(nextHours-12);
+                setHours(nextHours - 12);
                 setTimeOfDay("Evening");
                 setAmPm("PM");
             }
 
             if (nextMin < 10) {
                 setMinutes(nextMin.toString().padStart(2, '0'))
-            }     
+            }
 
         }, 500);
         return () => {
-          clearInterval(interval);
+            clearInterval(interval);
         };
-      }, [hours]);
+    }, [hours]);
 
     const addTask = (task) => {
         setTasks([...tasks, task])
         setTask("");
         let updatedTask = [];
-        for (let i=0; i<myTasks.length; i++) {
+        for (let i = 0; i < myTasks.length; i++) {
             updatedTask.push(myTasks[i]);
         }
         updatedTask.push(task);
@@ -85,15 +85,15 @@ function Dashboard() {
         return '_' + Math.random().toString(36).substr(2, 9);
     };
 
-      
+
     const taskItems = myTasks.map(item => {
         const taskId = item.id;
         return <ViewItems key={taskId} items={item} />
     });
 
-    return(
-        
-        <div className="bg background-tint" style={{backgroundImage: `url(${imgSrc}${timeOfDay},mountain)`}}>
+    return (
+
+        <div className="bg background-tint" style={{ backgroundImage: `url(${imgSrc}${timeOfDay},mountain)` }}>
             <div className="h-full flex flex-col items-center justify-center">
                 <h1 className="text-3xl text-white 2xl:text-8xl lg:text-7xl md:text-5xl">Good {timeOfDay}, Blessly!</h1>
             </div>
@@ -110,67 +110,67 @@ function Dashboard() {
             </div>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog
-                as="div"
-                className="fixed inset-0 z-10 overflow-y-auto"
-                onClose={closeModal}
+                    as="div"
+                    className="fixed inset-0 z-10 overflow-y-auto"
+                    onClose={closeModal}
                 >
-                <div className="min-h-screen px-4 text-center">
-                    <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                    >
-                    <Dialog.Overlay className="fixed inset-0" />
-                    </Transition.Child>
-
-                    <span
-                    className="inline-block h-screen align-middle"
-                    aria-hidden="true"
-                    >
-                    &#8203;
-                    </span>
-                    <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                    >
-                    <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-md">
-                        <Dialog.Title
-                        as="h3"
-                        className="text-lg font-medium leading-6 text-gray-900"
+                    <div className="min-h-screen px-4 text-center">
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-300"
+                            enterFrom="opacity-0"
+                            enterTo="opacity-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100"
+                            leaveTo="opacity-0"
                         >
-                        To-do List
-                        </Dialog.Title>
-                        <div className="mt-2">
-                        <input 
-                        className="w-full h-10 pl-3 pr-8 text-base text-gray-700 placeholder-gray-600 border rounded-md focus:outline-none" 
-                        type="text" 
-                        placeholder="Enter tasks here" 
-                        value={task} 
-                        onChange={(e) => setTask(e.target.value)} 
-                        onKeyDown={(e) => e.key === 'Enter' ? addTask({id: generateID(), taskItem: task, completed: false}) : ''}
-                        id="task"/>
-                        </div>
-                        <div className="mt-4 text-sm text-gray-500">
-                            {taskItems}
-                        </div>
-                        
+                            <Dialog.Overlay className="fixed inset-0" />
+                        </Transition.Child>
+
+                        <span
+                            className="inline-block h-screen align-middle"
+                            aria-hidden="true"
+                        >
+                            &#8203;
+                        </span>
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-300"
+                            enterFrom="opacity-0 scale-95"
+                            enterTo="opacity-100 scale-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100 scale-100"
+                            leaveTo="opacity-0 scale-95"
+                        >
+                            <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-md">
+                                <Dialog.Title
+                                    as="h3"
+                                    className="text-lg font-medium leading-6 text-gray-900"
+                                >
+                                    To-do List
+                                </Dialog.Title>
+                                <div className="mt-2">
+                                    <input
+                                        className="w-full h-10 pl-3 pr-8 text-base text-gray-700 placeholder-gray-600 border rounded-md focus:outline-none"
+                                        type="text"
+                                        placeholder="Enter tasks here"
+                                        value={task}
+                                        onChange={(e) => setTask(e.target.value)}
+                                        onKeyDown={(e) => e.key === 'Enter' ? addTask({ id: generateID(), taskItem: task, completed: false }) : ''}
+                                        id="task" />
+                                </div>
+                                <div className="mt-4 text-sm text-gray-500">
+                                    {taskItems}
+                                </div>
+
+                            </div>
+                        </Transition.Child>
                     </div>
-                    </Transition.Child>
-                </div>
                 </Dialog>
             </Transition>
         </div>
 
-        
+
     );
 }
 
