@@ -206,7 +206,7 @@ function Dashboard() {
                                                 <span className="ml-1 text-sm" style={item.completed ? style1 : style2} >{item.taskItem}</span>
                                                 <button className="float-right" onClick={(e) => handleDelete(e, item.id)}>
                                                     <span>
-                                                        <Icon className="text-black opacity-5 hover:opacity-50 text-lg m-0" icon="bi:x" />
+                                                        <Icon className="text-black opacity-50 hover:opacity-100 text-lg m-0" icon="bi:x" />
                                                     </span>
                                                 </button>
                                         </div>
