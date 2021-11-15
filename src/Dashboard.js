@@ -90,7 +90,6 @@ function Dashboard() {
         for (let i = 0; i < myTasks.length; i++) {
             updatedTask.push(myTasks[i]);
         }
-        console.log(updatedTask)
         updatedTask.push(task);
         updateLocalStorage(updatedTask)
     };
@@ -101,7 +100,6 @@ function Dashboard() {
 
     const handleChange = (itemKey) => {
         const prevTasks = [...myTasks]
-        console.log(prevTasks)
         let updatedTask = [];
         for (let i = 0; i < prevTasks.length; i++) {
             if (itemKey === prevTasks[i].id) {
@@ -123,7 +121,6 @@ function Dashboard() {
         tempArray.splice(indexToRemove, 1);
         setTasks(tempArray);
         updateLocalStorage(tempArray);
-        console.log(tempArray)
     }
 
     return (
