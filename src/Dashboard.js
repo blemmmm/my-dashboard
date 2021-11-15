@@ -2,7 +2,6 @@ import './css/Dashboard.css';
 import React, { useState, useEffect, Fragment } from 'react';
 import { Icon } from '@iconify/react';
 import { Dialog, Transition } from '@headlessui/react'
-import ViewItems from './ViewItems';
 
 function Dashboard() {
     const imgSrc = "https://source.unsplash.com/1920x1080/daily?";
@@ -17,6 +16,7 @@ function Dashboard() {
     const [month, setMonth] = useState("");
     const [task, setTask] = useState("");
     const [tasks, setTasks] = useState([]);
+
     let myTasks = []
     if (!localStorage.getItem("myTasks")) {
         localStorage.setItem("myTasks", JSON.stringify(tasks))
@@ -70,6 +70,19 @@ function Dashboard() {
         };
     }, [hours]);
 
+    const style1 = {
+        color: "gray",
+        textDecoration: "line-through",
+        fontStyle: "italic"
+    } 
+    const style2 = {
+        color: "black"
+    }
+
+    const updateLocalStorage = (updatedTodos) => {
+        localStorage.setItem("myTasks", JSON.stringify(updatedTodos));
+    }
+
     const addTask = (task) => {
         setTasks([...tasks, task])
         setTask("");
@@ -77,19 +90,41 @@ function Dashboard() {
         for (let i = 0; i < myTasks.length; i++) {
             updatedTask.push(myTasks[i]);
         }
+        console.log(updatedTask)
         updatedTask.push(task);
-        localStorage.setItem("myTasks", JSON.stringify(updatedTask))
+        updateLocalStorage(updatedTask)
     };
 
     const generateID = () => {
         return '_' + Math.random().toString(36).substr(2, 9);
     };
 
+    const handleChange = (itemKey) => {
+        const prevTasks = [...myTasks]
+        console.log(prevTasks)
+        let updatedTask = [];
+        for (let i = 0; i < prevTasks.length; i++) {
+            if (itemKey === prevTasks[i].id) {
+                prevTasks[i].completed = !prevTasks[i].completed;
+                updatedTask.push(prevTasks[i])
+            } else {
+                updatedTask.push(prevTasks[i])
+            }
+        }
+        setTasks(updatedTask)
+        updateLocalStorage(updatedTask)
+    }
 
-    const taskItems = myTasks.map(item => {
-        const taskId = item.id;
-        return <ViewItems key={taskId} items={item} />
-    });
+    const handleDelete = (event, itemKey) => {
+        event.preventDefault();
+        let tempArray = [...myTasks];
+        const ids = myTasks.map(item => item.id)
+        const indexToRemove = ids.indexOf(itemKey)
+        tempArray.splice(indexToRemove, 1);
+        setTasks(tempArray);
+        updateLocalStorage(tempArray);
+        console.log(tempArray)
+    }
 
     return (
 
@@ -160,7 +195,22 @@ function Dashboard() {
                                         id="task" />
                                 </div>
                                 <div className="mt-4 text-sm text-gray-500 divide-y-2 divide-gray-100">
-                                    {taskItems}
+                                    {myTasks.map((item) => (
+                                        <div key={item.id} className="flex-row content-center items-center py-1">
+                                            
+                                                <input
+                                                    type="checkbox"
+                                                    checked={item.completed}
+                                                    onChange={() => handleChange(item.id)}
+                                                />
+                                                <span className="ml-1 text-sm" style={item.completed ? style1 : style2} >{item.taskItem}</span>
+                                                <button className="float-right" onClick={(e) => handleDelete(e, item.id)}>
+                                                    <span>
+                                                        <Icon className="text-black opacity-5 hover:opacity-50 text-lg m-0" icon="bi:x" />
+                                                    </span>
+                                                </button>
+                                        </div>
+                                    ))}
                                 </div>
 
                             </div>
